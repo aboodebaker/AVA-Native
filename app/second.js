@@ -10,13 +10,13 @@ const Second = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, }}>
-       <Stack.Screen
+       {/* <Stack.Screen
         options={{
           headerBackVisible: false,
           headerTitle: "2",
           headerShown: false,
         }}
-      /> 
+      />  */}
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
@@ -24,7 +24,7 @@ const Second = () => {
             flex: 1,
           }}
         >
-          <Text>Second</Text>
+          <Text style={{color:'black'}}>Second</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

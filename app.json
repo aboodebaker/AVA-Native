@@ -1,5 +1,10 @@
 {
   "expo": {
+    "ios": {
+      "config": {
+        "useNonExemptEncryption": false
+      }
+    },
     "scheme": "acme",
     "web": {
       "bundler": "metro"

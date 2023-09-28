@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import {  useRouter } from "expo-router";
 
 
 
@@ -10,13 +10,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, }}>
-       <Stack.Screen
-        options={{
-          headerBackVisible: false,
-          headerTitle: "",
-          headerShown: false,
-        }}
-      /> 
+       
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View

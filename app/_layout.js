@@ -1,38 +1,45 @@
-//_layout.js
-import { Stack, } from "expo-router";
-import React from 'react'
+import { Stack, useNavigation } from "expo-router";
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Sidebar from "../components/sidebar/sidebar";
-
-export const unstable_settings = {
-  // Ensure any route can link back to `/`
-  initialRouteName: "home",
-};
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
     alignContent: 'center',
-    justifyContent:'center' // Arrange children in a row
+    justifyContent: 'center' // Arrange children in a row
   },
   sidebar: {
-    position: 'absolute', // Use 'absolute' for similar behavior to 'fixed'
+    position: 'absolute',
     left: 20,
-    top: '35%', // Center vertically
-    transform: [{ translateY: -50 }], // Center vertically
-    width: '20%', // Adjust the width as needed (you can use a percentage or fixed value)
-    backgroundColor: 'transparent', // Match the background color of your parent component
-    // Add scroll if content overflows (use this container as a wrapper)
+    top: '35%',
+    transform: [{ translateY: -50 }],
+    width: '20%',
+    backgroundColor: 'transparent',
     zIndex: 1000,
     borderRadius: 86,
   },
   mainContent: {
-    flex: 3, // Adjust the width of the main content area as needed
-    backgroundColor: 'white', // Customize as needed
+    flex: 3,
+    backgroundColor: 'white',
   },
 });
+
 const _layout = () => {
+  const { authState } = useAuth();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Check if the user is authenticated and redirect accordingly
+    if (authState.authenticated) {
+      navigation.navigate('home');
+    } else {
+      navigation.navigate('second'); // Redirect to the second screen when not logged in
+    }
+  }, [authState.authenticated, navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.sidebar}>
@@ -41,11 +48,19 @@ const _layout = () => {
       <View style={styles.mainContent}>
         <Stack initialRouteName="home">
           <Stack.Screen name="home" />
+          <Stack.Screen name="second" />
         </Stack>
       </View>
     </View>
-    
-  )
-}
+  );
+};
 
-export default _layout
+const App = () => {
+  return (
+    <AuthProvider>
+      <_layout />
+    </AuthProvider>
+  );
+};
+
+export default App;
